@@ -46,3 +46,19 @@ public class Solution2 {
          return true;
     }       
 }
+
+public class Solution3 {
+    public boolean canJump(int[] A) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int max = A[0];
+        
+        for (int i = 0; i < A.length; i++){
+            if (i <= max){
+                max = Math.max(max,i+A[i]);
+            }
+        }
+        if (max >= A.length-1) return true; 
+        return false;
+    }
+}
