@@ -119,7 +119,7 @@ public class LongestPalindromeSubString {
 		//System.out.println(l.getLongPal("cabaxddabad"));
 		//System.out.println(l.getLongPal("daaac"));
 		//System.out.println(l.getLongPal("aaaabbccccc"));
-		System.out.println(l.longestPalindrome("bb"));
+		System.out.println(l.longestPalindrome("aabbaa"));
 
 	}
 
