@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /*
  * Question 1
@@ -22,13 +24,45 @@ Your task in this problem is to run the clustering algorithm from lecture on thi
 ADVICE: If you're not getting the correct answer, try debugging your algorithm using some small test cases. And then post them to the discussion forum!
  */
 public class PS2Q1 {
+	static int[] parents;
+	static class Edge implements Comparable<Edge>{
+		int i;
+		int j;
+		int cost;
+		public Edge(int i, int j, int cost){
+			this.i = i;
+			this.j = j;
+			this.cost = cost;
+		}
+		@Override
+		public int compareTo(Edge arg0) {
+			// TODO check the order
+			final int BEFORE = 1;
+			final int AFTER = -1;
+			if (this.cost >= arg0.cost) return BEFORE;
+			else return AFTER;
+			//return 0;
+		}
+	}
+	public static int numClusters(int[] p){
+		//num of distinct parents is the numClusters
+		int c = 0;
+		int[]p1 = new int[p.length];
+		for(int i = 0; i < p.length; i++)
+			p1[i] = -1;
+		for(int i = 0; i < p.length; i++)
+			p1[p[i]] = 1;
+		for(int i = 0; i < p.length; i++)
+			if (p[i]==1) c++;
+		return c;		
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		ArrayList<Edge> edges = new ArrayList<Edge>();
 		ArrayList<ArrayList<Integer>> clusters = new ArrayList<ArrayList<Integer>>();
-		int[][] graph;
 		int k = 3;
 		int n = 0;
 		try {
@@ -36,21 +70,31 @@ public class PS2Q1 {
 			DataInputStream d = new DataInputStream(f);
 			BufferedReader b =  new BufferedReader(new InputStreamReader(d));
 			n = Integer.parseInt(b.readLine());
-			graph = new int[n][n];
+			parents = new int[n];			
 
-			for(int i = 0; i < n;i++)
-				for(int j = 0; j < n; j++)
-					graph[i][j] = Integer.MAX_VALUE;
+			for(int i = 0; i < n;i++){
+				parents[i] = i;				
+			}
 			String str; int i,j,v;
 			while((str=b.readLine())!=null){
 				i = Integer.parseInt(str.split(" ")[0]);
 				j = Integer.parseInt(str.split(" ")[1]);
 				v = Integer.parseInt(str.split(" ")[2]);
-				graph[i][j] = v;
-				graph[j][i] = v;
-
+				edges.add(new Edge(i-1,j-1,v));
 			}
-
+			Collections.sort(edges);
+			for(Edge e : edges){				
+				//merge smaller cluster into bigger one if parents are different- if same, do nothing
+				int c1 = parents[e.i];
+				int c2 = parents[e.j];
+				if ( c1 == c2 ){
+					continue;
+				}else{
+					merge(e.i,e.j);
+				}
+				if (numClusters(parents)==k) break;
+				
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,7 +110,7 @@ public class PS2Q1 {
 		for(int i = 0; i <n;i++)
 			clusters.add(new ArrayList<Integer>(i));
 		while(clusters.size() > k){
-			
+
 
 		}
 	}
