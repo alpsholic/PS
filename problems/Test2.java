@@ -25,7 +25,7 @@ public class Test2 implements A,B{
 		
 	//	Stack<Integer> st = new Stack<Integer>();
 		
-		System.out.println(a);
+		//System.out.println(a);
 		
 		
 	}
