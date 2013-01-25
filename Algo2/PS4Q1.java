@@ -45,16 +45,18 @@ public class PS4Q1 {
 
 			try {
 				f = new FileInputStream(".//Algo2//g1.txt");
-				if (count == 2) f = new FileInputStream("..//Algo2//g2.txt");
-				if (count == 3) f = new FileInputStream("..//Algo2//g3.txt");
+				if (count == 2) f = new FileInputStream(".//Algo2//g2.txt");
+				if (count == 3) f = new FileInputStream(".//Algo2//g3.txt");
 				DataInputStream d = new DataInputStream(f);
 				BufferedReader b = new BufferedReader(new InputStreamReader(d));
 				n = Integer.parseInt(b.readLine().split(" ")[0]);
 				graph = new int [n][n];
-				A = new int[n][n][n];
+				A = new int[n][n][2];//we dont need of size [n][n][k] because at any point we refer to k and k-1 only 
 				for (int i = 0; i < n; i++)
 					for (int j =0; j < n; j++)
-						graph[i][j] = Integer.MAX_VALUE;
+						if (i==j) graph[i][j] = 0;
+						else
+							graph[i][j] = 999999;
 				String str;
 				int x,y,z;;
 				while((str=b.readLine())!= null){
@@ -64,23 +66,25 @@ public class PS4Q1 {
 					graph[x-1][y-1] = z;						
 				}
 				for (int i = 0; i < n; i++)
-					for (int j = 0 ; j < n; j++){
-						if (i==j) {
-							A[i][j][0] = 0; 
-							continue;
-						}
-						//if (graph[i][j] != Integer.MIN_VALUE) A[i][j][0] = graph[i][j];
-						//else A[i][j][0] = Integer.MAX_VALUE;
-						A[i][j][0] = graph[i][j];
-					}
-				for (int k = 1; k < n; k++)
+					for (int j = 0 ; j < n; j++)
+						if (i==j) A[i][j][0] = 0;
+						else A[i][j][0] = graph[i][j];
+
+				for (int k = 0; k < n; k++){
 					for (int i = 0; i < n; i++)
 						for (int j = 0; j < n; j++){
-							A[i][j][k] = Math.min(A[i][j][k-1],A[i][k][k-1]+A[k][j][k-1]);							
+							A[i][j][1] = Math.min(A[i][j][0],A[i][k][0]+A[k][j][0]);							
 						}
+					//copy A[][][1] to A[][][0]
+					for (int i = 0; i < n; i++)
+						for (int j = 0; j<n;j++){
+							A[i][j][0] = A[i][j][1];
+						}
+				}
 				int i = 0;
 				for (; i <n;i++){
-					if(A[i][i][n-1] < 0){
+					if(A[i][i][0] < 0){
+						System.out.println(" A[i][i][0] = " + i + " " + A[i][i][0]);
 						System.out.println("graph " + count + " has a -ve cycle");
 						break;
 					}
@@ -90,7 +94,7 @@ public class PS4Q1 {
 					int min = 0;
 					for (int ix = 0; ix < n; ix++)
 						for (int j =0;j<n;j++){
-							min = Math.min(min,A[ix][j][n-1]);
+							min = Math.min(min,A[ix][j][0]);
 						}
 					System.out.println("min cost "+ min);					
 				}
