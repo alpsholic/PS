@@ -60,8 +60,9 @@ public class PS2Q2 {
 	}
 
 	public static BitSet find(BitSet b){
-		while (b != clusters.get(b)){
-			b = (BitSet) clusters.get(b).clone();
+		while (!b.equals(clusters.get(b))){
+			//b = (BitSet) clusters.get(b).clone();
+			b = clusters.get(b);
 		}
 		return b;
 	}
@@ -128,7 +129,7 @@ public class PS2Q2 {
 			int count = 0;
 			//parent of a parent is itself..each cluster has a single parent. 
 			for(Entry<BitSet, BitSet> e : clusters.entrySet()){
-				if (e.getKey() == e.getValue()){
+				if (e.getKey().equals(e.getValue())){
 					count++;
 				}
 			}
@@ -141,8 +142,5 @@ public class PS2Q2 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 	}
-
 }
