@@ -114,18 +114,29 @@ public class PS2Q2 {
 			String str = br.readLine();
 			n = Integer.parseInt(str.split(" ")[0]);
 			numBits = Integer.parseInt(str.split(" ")[1]);
+			int count2 = 0;
 			while((str = br.readLine())!= null){
 				BitSet b = getBitSet(str);
+//				if (clusters.containsKey(b)) {
+//					System.out.println(" a duplicate found " + b.toString());
+//				}
 				clusters.put(b, b);
+				//count2++;
 			}
+			//System.out.println( count2 + " entries are read ");
+			//System.out.println(" number of entries in DHT " + clusters.size());
 
 			for (BitSet s : clusters.keySet()){
 				//for all at distance of 1 or 2 from s
 				ArrayList<BitSet> members = getMembers(s);
+				//System.out.println(" members sizes "+members.size());
+				if (members.size() == 0) count2++;
+				
 				for (BitSet m : members){
 					union(s,m);
 				}
 			}
+			System.out.println(" number of points with zero neighbours with <=2 distance "+count2);
 			int count = 0;
 			//parent of a parent is itself..each cluster has a single parent. 
 			for(Entry<BitSet, BitSet> e : clusters.entrySet()){
