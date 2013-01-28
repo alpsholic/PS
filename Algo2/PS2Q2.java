@@ -80,7 +80,7 @@ public class PS2Q2 {
 	public static ArrayList<BitSet> getMembers(BitSet s){
 		BitSet sbackup = (BitSet) s.clone();
 		ArrayList<BitSet> ret = new ArrayList<BitSet>();
-		for(int i = 0; i < numBits-1; i++){
+		for(int i = 0; i <= numBits-1; i++){
 			BitSet s1 = new BitSet();
 			s1.clear();
 			s1 = (BitSet) sbackup.clone();
@@ -90,12 +90,12 @@ public class PS2Q2 {
 			}
 		}
 		//now flip 2 bits to create distance of 2
-		for(int i = 0; i < numBits-1; i++){
+		for(int i = 0; i <= numBits-1; i++){
 			BitSet s1 = new BitSet();
 			s1.clear();
 			s1 = (BitSet) sbackup.clone();
 			s1.flip(i);
-			for (int j = i+1; j<numBits-1; j++){
+			for (int j = i+1; j<=numBits-1; j++){
 				BitSet s2 = new BitSet();
 				s2 = (BitSet) s1.clone();
 				s2.flip(j);
