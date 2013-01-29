@@ -1,23 +1,65 @@
 package Algo2;
 
-import java.util.Arrays;
+interface Ione{
+	int a = 0;
+	public void test();
+	public void one();
+}
 
-public class test {
+interface Itwo{
+	int a = 1;
+	public void test();
+	public void two();
+}
 
-	public static void sort(int a[]){
-		Arrays.sort(a);
-	}
+interface Ithree{
+	public void test();
+	public void three();
+}
+
+
+public class Test implements Ione,Itwo,Ithree {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] b = {3,5,1,2,6};
-		sort(b);
-		for(int i = 0; i <5;i++)
-			System.out.print(b[i]+" ");
+		Test t = new Test();
+		Ione i1 = (Ione)t;
+		i1.two();
+	System.out.println(Ione.a);;
+		t.test();
+		i1.test();
+		i1.one();
 
+	}
+
+	@Override
+	public void test() {
+		// TODO Auto-generated method stub
+		System.out.println("in test" + Ione.a);
+		
+	}
+
+	@Override
+	public void three() {
+		// TODO Auto-generated method stub
+		System.out.println("three");
+	}
+
+	@Override
+	public void two() {
+		// TODO Auto-generated method stub
+		System.out.println("two");
+		
+	}
+
+	@Override
+	public void one() {
+		// TODO Auto-generated method stub
+		System.out.println("one");
+		
 	}
 
 }
