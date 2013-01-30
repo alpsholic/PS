@@ -79,7 +79,7 @@ public class PS5Q1TPSOld {
 			ArrayList<Float> X = new ArrayList<Float>();
 			ArrayList<Float> Y = new ArrayList<Float>();
 			//indexes will store a subset and its index into the matrix A;
-			HashMap<ArrayList<Integer>,Integer> indexes = new HashMap<ArrayList<Integer>, Integer>();
+			//HashMap<ArrayList<Integer>,Integer> indexes = new HashMap<ArrayList<Integer>, Integer>();
 			ArrayList<Entry> entries = new ArrayList<PS5Q1TPSOld.Entry>();			
 			
 			while((str=br.readLine())!= null){
@@ -99,6 +99,10 @@ public class PS5Q1TPSOld {
 			BitSet s = new BitSet(n);
 			s.flip(0);
 			entries.add(new Entry(s,0,0));//[{0},0] = 0
+			
+			
+			
+			//delete < m-1 sized entries
 			
 			
 			

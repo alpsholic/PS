@@ -17,6 +17,8 @@ public class test {
 		sort(b);
 		for(int i = 0; i <5;i++)
 			System.out.print(b[i]+" ");
+		int[][] a = new int[3][4];
+		System.out.println(" a.length " + a[0].length);
 
 	}
 
