@@ -19,8 +19,18 @@ public class MedianMaintenance {
 	
 	public MedianMaintenance(){
 		
-		maxHeap = new PriorityQueue<Integer>(10, new CompG());
-		minHeap = new PriorityQueue<Integer>(10, new CompL());		
+		maxHeap = new PriorityQueue<Integer>(10, new Comparator<Integer>(){
+			public int compare(Integer x, Integer y){
+				if (x >= y) return 1;
+				return -1;
+			}
+		});
+		minHeap = new PriorityQueue<Integer>(10, new Comparator<Integer>(){
+			public int compare(Integer x, Integer y){
+				if (x <= y) return 1;
+				return -1;
+			}
+		});		
 	}
 	public void processNextElement(int i){
 		if (maxHeap.size() == 0){
@@ -68,14 +78,14 @@ public class MedianMaintenance {
 class CompG implements Comparator<Integer>{
 	public int compare(Integer x, Integer y){
 		if (x >= y) return 1;
-		return 0;
+		return -1;
 	}
 }
 
 class CompL implements Comparator<Integer>{
 	public int compare(Integer x, Integer y){
 		if (x <= y) return 1;
-		return 0;
+		return -1;
 	}
 }
 
