@@ -1,6 +1,8 @@
 package problems;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 /*
@@ -99,4 +101,54 @@ public class LongestConsecutiveSeq {
 		System.out.println("max : " + max);
 	}
 
+	 public int longestConsecutive(int[] num) {
+	        // Start typing your Java solution below
+	        // DO NOT write main() function
+	        Map<Integer,Integer> M = new HashMap<Integer,Integer>();
+	        int ans = 1;
+	        for(int n:num){
+	            if(M.containsKey(n)) continue;
+	            else if(M.containsKey(n-1) && M.containsKey(n+1)){
+	                M.put(n,1);
+	                int l = M.get(n-1);
+	                int h = M.get(n+1);
+	                M.put(n-l,h+l+1);
+	                M.put(n+h,h+l+1);
+	                
+	            }else if(M.containsKey(n-1)){
+	                M.put(n,1+M.get(n-1));
+	                M.put(n-M.get(n-1),1+M.get(n-1));
+	            }else if(M.containsKey(n+1)){
+	                M.put(n,1+M.get(n+1));
+	                M.put(n+M.get(n+1),1+M.get(n+1));
+	            }else{
+	                M.put(n,1);
+	            }
+	        }
+	        for(int n:M.keySet()){
+	            ans = Math.max(ans,M.get(n));
+	        }
+	        return ans;
+	        
+	    }
+	 //sort then do..O(nlogn)
+	    public int longestConsecutive1(int[] num) {
+	        // Start typing your Java solution below
+	        // DO NOT write main() function
+	        Arrays.sort(num);
+	        int ans = 1;
+	        int tmp = 1;
+	        for(int i=1;i<num.length;i++){
+	            if(num[i]-num[i-1] == 1){
+	                tmp += 1;
+	            }else if(num[i]==num[i-1]){
+	            
+	            }else{
+	                tmp = 1;
+	            }
+	            ans = Math.max(tmp,ans);
+	        }
+	        return ans;
+	        
+	    }
 }
